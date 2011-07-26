@@ -20,7 +20,8 @@ PROCESSING  - fluid library - diewald_fluid
   a) on the CPU
   b) on the GPU, which is about 10 to 20 times faster than on the CPU
      the simulation happens on several shaders, that are loaded internally by 
-     the processing library GLGraphics.jar (http://glgraphics.sourceforge.net)
+     the processing library GLGraphics.jar by andres colubri 
+     (http://glgraphics.sourceforge.net , or here http://codeanticode.wordpress.com/) 
      so you need to install GLGraphics.jar too, if you want to instantiate 
      the GPU fluid.
      
