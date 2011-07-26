@@ -30,7 +30,7 @@ Fluid2D fluid;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public void setup() {
-  size(window_size_x, window_size_y, GLConstants.GLGRAPHICS); // P2D is not working, don't know why
+  size(window_size_x, window_size_y, GLConstants.GLGRAPHICS); 
 
   fluid = createFluidSolver();
   frameRate(60);

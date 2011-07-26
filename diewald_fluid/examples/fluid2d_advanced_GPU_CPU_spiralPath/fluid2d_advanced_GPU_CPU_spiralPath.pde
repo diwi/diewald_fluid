@@ -52,7 +52,7 @@ public void setup() {
     size(window_size_x, window_size_y, GLConstants.GLGRAPHICS);
   }
   if ( CPU_GPU == 1 ){
-      size(window_size_x, window_size_y, JAVA2D);
+    size(window_size_x, window_size_y, JAVA2D);
   }
 
   //input_density_values = loadImage("mondrian_640x480.jpg");

@@ -23,11 +23,11 @@ import diewald_fluid.Fluid2D;
 import diewald_fluid.Fluid2D_CPU;
 import diewald_fluid.Fluid2D_GPU;
 
-int  CPU_GPU        = 0; // 0 is GPU, 1 is CPU;
-int  fluid_size_x = 300; 
-int  fluid_size_y = 300;
+int  CPU_GPU        = 1; // 0 is GPU, 1 is CPU;
+int  fluid_size_x = 100; 
+int  fluid_size_y = 100;
 
-int  cell_size    = 2;
+int  cell_size    = 6;
 int  window_size_x = fluid_size_x  * cell_size + (cell_size * 2);
 int  window_size_y = fluid_size_y  * cell_size + (cell_size * 2);
 
@@ -43,7 +43,7 @@ public void setup() {
     size(window_size_x, window_size_y, JAVA2D);
   }
 
-  fluid = createFluidSolver();
+  fluid = createFluidSolver(CPU_GPU);
   frameRate(60);
 }
 
@@ -54,19 +54,20 @@ public void draw() {
   background(255);
   if ( mousePressed ) 
     fluidInfluence(fluid);
-  setVel (fluid, 10, 10, 2, 2, .2f, .2f);
-  setDens(fluid, 10, 10, 8, 8, 4, 0, 0);
+  float speed = .15f;
+  setVel (fluid, 10, 10, 1, 1, speed, speed);
+  setDens(fluid, 10, 10, 3, 3, 1, 0, 0);
   
-  setVel (fluid, width-10, cell_size*4, 2, 2, -.2f, .2f);
-  setDens(fluid, width-10, cell_size*4, 8, 8, 4, 4, 4);
+  setVel (fluid, width-10, cell_size*4, 2, 2, -speed, speed);
+  setDens(fluid, width-10, cell_size*4, 3, 3, 1, 1, 1);
   
-  setVel (fluid, width-10, height-10, 2, 2, -.2f, -.2f);
-  setDens(fluid, width-10, height-10, 8, 8, 0, 0, 4);
+  setVel (fluid, width-10, height-10, 2, 2, -speed, -speed);
+  setDens(fluid, width-10, height-10, 3, 3, 0, 0, 1);
   
-  setVel (fluid, 10, height-10, 2, 2, .2f, -.2f);
-  setDens(fluid, 10, height-10, 8, 8, 0, 4, 0);
+  setVel (fluid, 10, height-10, 2, 2, speed, -speed);
+  setDens(fluid, 10, height-10, 3, 3, 0, 1, 0);
   
-  fluid.smoothDensityMap(!( keyPressed && key == 's'));
+  fluid.smoothDensityMap(( keyPressed && key == 's'));
   
   fluid.update();
   image(fluid.getDensityMap(), 0, 0, width, height);
@@ -77,8 +78,11 @@ public void draw() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // createFluidSolver();
 //
-Fluid2D createFluidSolver() {
-  Fluid2D fluid_tmp = new Fluid2D_GPU(this, fluid_size_x, fluid_size_y); // initialize de solver
+Fluid2D createFluidSolver(int type) {
+  Fluid2D fluid_tmp = null;
+  
+  if ( type == 0) fluid_tmp = new Fluid2D_GPU(this, fluid_size_x, fluid_size_y);
+  if ( type == 1) fluid_tmp = new Fluid2D_CPU(this, fluid_size_x, fluid_size_y);
 
   fluid_tmp.setParam_Timestep  ( 0.10f );
   fluid_tmp.setParam_Iterations( 16 );
