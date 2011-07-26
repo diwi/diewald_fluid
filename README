@@ -1,0 +1,88 @@
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+AUTHOR: Thomas Diewald
+Date: 26.07.2011
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+################################################################################
+--------------------------------------------------------------------------------
+PROCESSING  - fluid library - diewald_fluid
+--------------------------------------------------------------------------------
+################################################################################
+
+
+- this library is made for simulating fluids in realtime
+- the simulation can be done in two ways:
+  a) on the CPU
+  b) on the GPU, which is about 10 to 20 times faster than on the CPU
+     the simulation happens on several shaders, that are loaded internally by 
+     the processing library GLGraphics.jar (http://glgraphics.sourceforge.net)
+     so you need to install GLGraphics.jar too, if you want to instantiate 
+     the GPU fluid.
+     
+
+
+
+--------------------------------------------------------------------------------
+ZIP_CONTENT:
+1) processing examples
+2) reference
+3) source-code
+4) library: diewald_fluid.jar
+      
+
+--------------------------------------------------------------------------------
+FEATURES:
+- fluid-solver for 2d-simulation (maybe 3d will follow)
+- GPU / CPU solver
+- interaction with obstacles
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+USEFUL LINKS TO THIS ISSUE:
+
+http://cowboyprogramming.com/2008/04/01/practical-fluid-mechanics/
+
+http://www.dgp.toronto.edu/people/stam/reality/Research/pub.html
+
+http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf
+
+http://icosahedral.net/java/fluidsim.html
+
+http://www.cs.unm.edu/~mskarim/cgprojects.htm
+
+http://software.intel.com/en-us/articles/fluid-simulation-for-video-games-part-1/
+
+http://www.gm.fh-koeln.de/~konen/research/DA-BA-MA/WPP-Projekte.html
+
+http://www.plunk.org/~trina/thesis/html/thesis_toc.html
+
+http://www.ss.iij4u.or.jp/~amada/fluid/
+
+http://physbam.stanford.edu/~fedkiw/
+
+http://physbam.stanford.edu/~fedkiw/
+
+http://developer.download.nvidia.com/SDK/9.5/Samples/samples.html#gpgpu_fluid
+
+http://vterrain.org/Water/
+
+http://users.cms.caltech.edu/~keenan/project_fluid.html
+
+http://www.foliativ.net/book/index.php?post/2011/03/04/Cuda-Fluid-Solver-Plugin
+
+http://sites.google.com/site/jakubcerveny/
+
+http://www.cs.cornell.edu/courses/cs567/2007sp/a4SmokeControl/
+
+
