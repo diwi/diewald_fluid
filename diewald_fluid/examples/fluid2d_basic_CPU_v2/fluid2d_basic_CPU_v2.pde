@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // author: thomas diewald
-// date: 25.07.2011
+// date: 27.07.2011
 //
 // basic example to show how to initialize a GPU-based fluidsolver
 //
@@ -17,17 +17,15 @@
 //
 //------------------------------------------------------------------------------
 
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import diewald_fluid.Fluid2D;
 import diewald_fluid.Fluid2D_CPU;
 import diewald_fluid.Fluid2D_GPU;
 
 int  CPU_GPU        = 1; // 0 is GPU, 1 is CPU;
-int  fluid_size_x = 100; 
-int  fluid_size_y = 100;
+int  fluid_size_x = 150; 
+int  fluid_size_y = 150;
 
-int  cell_size    = 6;
+int  cell_size    = 4;
 int  window_size_x = fluid_size_x  * cell_size + (cell_size * 2);
 int  window_size_y = fluid_size_y  * cell_size + (cell_size * 2);
 
@@ -36,12 +34,8 @@ PImage output_densityMap;
 boolean edit_quader = false;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public void setup() {
-  if ( CPU_GPU == 0 ){
-    size(window_size_x, window_size_y, GLConstants.GLGRAPHICS);
-  }
-  if ( CPU_GPU == 1 ){
-    size(window_size_x, window_size_y, JAVA2D);
-  }
+  size(window_size_x, window_size_y, JAVA2D);
+
 
   fluid = createFluidSolver(CPU_GPU);
   frameRate(60);
@@ -54,18 +48,20 @@ public void draw() {
   background(255);
   if ( mousePressed ) 
     fluidInfluence(fluid);
-  float speed = .15f;
-  setVel (fluid, 10, 10, 1, 1, speed, speed);
-  setDens(fluid, 10, 10, 3, 3, 1, 0, 0);
+  float speed = .25f;
   
-  setVel (fluid, width-10, cell_size*4, 2, 2, -speed, speed);
-  setDens(fluid, width-10, cell_size*4, 3, 3, 1, 1, 1);
+  int off = 15;
+  setVel (fluid,       off,        10, 2, 2, speed, speed);
+  setDens(fluid,       off,        10, 3, 3, 1, 0, 0);
   
-  setVel (fluid, width-10, height-10, 2, 2, -speed, -speed);
-  setDens(fluid, width-10, height-10, 3, 3, 0, 0, 1);
+  setVel (fluid, width-off,        10, 2, 2, -speed, speed);
+  setDens(fluid, width-off,        10, 3, 3, 1, 1, 1);
   
-  setVel (fluid, 10, height-10, 2, 2, speed, -speed);
-  setDens(fluid, 10, height-10, 3, 3, 0, 1, 0);
+  setVel (fluid, width-off, height-10, 2, 2, -speed, -speed);
+  setDens(fluid, width-off, height-10, 3, 3, 0, 0, 1);
+  
+  setVel (fluid,       off, height-10, 2, 2, speed, -speed);
+  setDens(fluid,       off, height-10, 3, 3, 0, 1, 0);
   
   fluid.smoothDensityMap(( keyPressed && key == 's'));
   
@@ -85,16 +81,15 @@ Fluid2D createFluidSolver(int type) {
   if ( type == 1) fluid_tmp = new Fluid2D_CPU(this, fluid_size_x, fluid_size_y);
 
   fluid_tmp.setParam_Timestep  ( 0.10f );
-  fluid_tmp.setParam_Iterations( 16 );
+  fluid_tmp.setParam_Iterations( 8 );
   fluid_tmp.setParam_IterationsDiffuse(1);
-  fluid_tmp.setParam_Viscosity ( 0.00000001f );
-  fluid_tmp.setParam_Diffusion ( 0.0000000001f );
+  fluid_tmp.setParam_Viscosity ( 0.00000000f );
+  fluid_tmp.setParam_Diffusion ( 0.000001f );
   fluid_tmp.setParam_Vorticity ( 2.0f );
   fluid_tmp.processDensityMap  ( true );
   fluid_tmp.processDiffusion   ( true );
-  fluid_tmp.processViscosity   ( true );
+  fluid_tmp.processViscosity   ( !true );
   fluid_tmp.processVorticity   ( true );
-  fluid_tmp.processDensityMap  ( true );
   fluid_tmp.setObjectsColor    (1, 1, 1, 1); 
   
   output_densityMap    = createImage(window_size_x, window_size_y, RGB);
