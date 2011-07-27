@@ -28,7 +28,7 @@ package diewald_fluid;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-//import processing.core.PGraphicsJava2D;
+import processing.core.PGraphicsJava2D;
 //import processing.opengl.PGraphicsOpenGL;
 
 

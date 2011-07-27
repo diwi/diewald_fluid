@@ -61,7 +61,7 @@ public final class Fluid2D_CPU extends Fluid2D{
   
   @Override
   protected final void privateSetTextureBackground(PImage img){
-    System.out.println(img);
+
     TEX_background_ = img;
     if( TEX_background_ == null ){
       TEX_background_rgb_ = null;
