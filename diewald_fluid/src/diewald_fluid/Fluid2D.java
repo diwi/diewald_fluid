@@ -29,7 +29,7 @@ package diewald_fluid;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PGraphicsJava2D;
-//import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PGraphicsOpenGL;
 
 
 /**
@@ -42,7 +42,7 @@ import processing.core.PGraphicsJava2D;
 */
 public abstract class Fluid2D {
   protected static final String NAME_    = "diewald_fluid";
-  protected static final String VERSION_ = "v0.10";
+  protected static final String VERSION_ = "v0.20";
   
   protected PApplet p5parent_;
   protected int     NX_, NY_, BUFFER_SIZE_;
@@ -85,14 +85,13 @@ public abstract class Fluid2D {
   protected Fluid2D(PApplet p5parent, int nx, int ny) {
     p5parent_ =  p5parent;
     
-//    if( this instanceof FluidSolver2D_GPU){
-//      if( !(p5parent_.g instanceof PGraphicsOpenGL) ){
-//        System.err.println("FluidSolver2D_GLSL is USING WRONG RENDERER: ");
-//        System.err.println("          change renderer to \"GLConstants.GLGRAPHICS\"");
-//      }
-//      System.out.println("created FluidSolver2D_GLSL");
-//    }
-
+    if( this instanceof Fluid2D_GPU){
+      if( !(p5parent_.g instanceof PGraphicsOpenGL) ){
+        System.err.println("Fluid2D_GPU is USING WRONG RENDERER: ");
+        System.err.println("  --> change renderer to \"GLConstants.GLGRAPHICS\"");
+      }
+      System.out.println("created Fluid2D_GPU");
+    }
     reset(nx, ny);
   }
   /**

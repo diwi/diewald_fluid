@@ -209,10 +209,14 @@ public final class Fluid2D_GPU extends Fluid2D{
   protected final PImage privateGetDensityMap(){
     return TEX_densityMap_;
   }
+  public final GLTexture getDensityMapTexture(){
+    return TEX_densityMap_;
+  }
   @Override
   protected final void privateSetDensityMap(PImage img){
     TEX_densityMap_.putImage(img);
   }
+  
   
   
   @Override
