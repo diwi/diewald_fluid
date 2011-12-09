@@ -1,0 +1,38 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_addSource.frag
+  
+-->
+
+
+
+<filter name="FluidSolver2D_addSource">
+    <description>FluidSolver2D_addSource</description>
+    <fragment>FluidSolver2D_addSource.frag</fragment>
+    <textures input="2" output="1">
+        <intexture type="sampler2d" name="tex_x0" offset="inv_size"         label="tex_x0">0</intexture>      
+        <intexture type="sampler2d" name="tex_x1" offset="tex_x1_inv_size"  label="tex_x1">1</intexture>       
+    </textures>
+
+    <parameter type="float" name="timestep" label="timestep">1.0</parameter>
+</filter>
+
+<!--
+
+
+
+  private void addSource(float[] wo_x, float[] ro_x0, float ro_timestep){
+    for (int i = 0; i < SIZE_; i++){
+      wo_x[i] += ro_timestep * ro_x0[i];
+    }
+  }
+
+  
+  
+  
+-->

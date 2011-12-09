@@ -1,11 +1,23 @@
 /**
- * diewald_FluidSolver2D - Processing Library.
  * 
- * this package handles fluid simulations (GPU-version, CPU-Version), for fast
- * interaction and visual output.
+ * diewald_fluid v00.30
+ * 
+ * fluid dynamics library for processing - CPU / GPU mode.
  * 
  * 
- * Copyright (c) 2011 Thomas Diewald
+ * 
+ *   (C) 2011    Thomas Diewald
+ *               http://www.thomasdiewald.com
+ *   
+ *   last built: 12/09/2011
+ *   
+ *   download:   http://thomasdiewald.com/processing/libraries/diewald_fluid/
+ *   source:     https://github.com/diwi/diewald_fluid 
+ *   
+ *   tested OS:  osx,windows
+ *   processing: 1.5.1, 2.04
+ *
+ *
  *
  *
  * This source is free software; you can redistribute it and/or modify
@@ -24,11 +36,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+
+
 package diewald_fluid;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import processing.core.PGraphicsJava2D;
+
 import processing.opengl.PGraphicsOpenGL;
 
 
@@ -42,7 +56,7 @@ import processing.opengl.PGraphicsOpenGL;
 */
 public abstract class Fluid2D {
   protected static final String NAME_    = "diewald_fluid";
-  protected static final String VERSION_ = "v0.20";
+  protected static final String VERSION_ = "v0.30";
   
   protected PApplet p5parent_;
   protected int     NX_, NY_, BUFFER_SIZE_;
@@ -92,6 +106,7 @@ public abstract class Fluid2D {
       }
       System.out.println("created Fluid2D_GPU");
     }
+
     reset(nx, ny);
   }
   /**
@@ -155,7 +170,7 @@ public abstract class Fluid2D {
   }
 
   public final float[] getBufferVelocityV_byRef(){
-    return privateGetBufferVelocityU_byRef();
+    return privateGetBufferVelocityV_byRef();
   }
   
   
@@ -178,7 +193,13 @@ public abstract class Fluid2D {
   
   
   
-  // setter
+  /**
+   * processBuoyany()
+   * not implemented at the current stage!
+   * 
+   * @param b_buoyancy
+   * @return current fluid instance
+   */
   public final Fluid2D processBuoyany(boolean b_buoyancy){
     b_buoyancy_ = b_buoyancy;
     return this;
@@ -312,39 +333,68 @@ public abstract class Fluid2D {
   
   
   
-  //----------------------------------------------------------------------------
-  // setInk();
-  //----------------------------------------------------------------------------
+  /**
+   * addDensity()
+   * add density to the fluid solver.
+   * 
+   * @param density_layer
+   * @param x
+   * @param y
+   * @param value
+   */
   public final void addDensity(int density_layer, int x, int y, float value){
     if( !isInsideGrid(x, y) ) return;
     densityOld_[density_layer][IDX(x, y)] = value;
   }
   
-  //----------------------------------------------------------------------------
-  // setVel();
-  //----------------------------------------------------------------------------
-  public final void addVelocity(int x, int y, float xValue, float yValue){
+  
+  /**
+   * addVelocity()
+   * add velocity to the fluid solver.
+   * 
+   * @param x
+   * @param y
+   * @param x_value  x-direction-vector
+   * @param y_value  y-direction-vector
+   */
+  public final void addVelocity(int x, int y, float x_value, float y_value){
     if( !isInsideGrid(x, y) ) return;
-    uVelOld_[IDX(x, y)] = xValue;
-    vVelOld_[IDX(x, y)] = yValue;
+    uVelOld_[IDX(x, y)] = x_value;
+    vVelOld_[IDX(x, y)] = y_value;
   }
   
-  //----------------------------------------------------------------------------
-  // setVel();
-  //----------------------------------------------------------------------------
+  /**
+   * addObject()
+   * add obstacles to the fluid solver.
+   * 
+   * @param x
+   * @param y
+   */
   public final void addObject(int x, int y){
     if( !isInsideGrid(x, y) ) return;
     objects_[IDX(x, y)] = 2.0f;
   }
   
-  //----------------------------------------------------------------------------
-  // setVel();
-  //----------------------------------------------------------------------------
+  /**
+   * removeObject()
+   * remove obstacles to the fluid solver.
+   * 
+   * @param density_layer
+   * @param x
+   * @param y
+   */
   public final void removeObject(int x, int y){
     objects_[IDX(x, y)] = 0.0f;
   }
   
-  
+  /**
+   * isInsideGrid()
+   * this can be used, to check if the given position (x and y) is actually
+   * on the fluid grid, which has usually a smaller resolution than the actual frame.
+   * 
+   * @param x
+   * @param y
+   */
   public final boolean isInsideGrid(int x, int y){
     return !( x < 1 || x > NX_ || y < 1 || y > NY_);
   }

@@ -1,0 +1,45 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_vorticityConfinement_STEP2.frag
+  
+-->
+
+
+<filter name="FluidSolver2D_vorticityConfinement_STEP2">
+    <description>FluidSolver2D_vorticityConfinement_STEP2</description>
+    <fragment>FluidSolver2D_vorticityConfinement_STEP2.frag</fragment>
+    <textures input="3" output="2">
+        <intexture type="sampler2d" name="tex1_ro_uVel" offset="inv_size"  label="tex1_ro_uVel">0</intexture>  
+        <intexture type="sampler2d" name="tex2_ro_vVel" offset="tex2_ro_vVel_inv_size"  label="tex2_ro_vVel">1</intexture>   
+        <intexture type="sampler2d" name="tex3_ro_curl" offset="tex3_ro_curl_inv_size"  label="tex3_ro_curl">2</intexture>                     
+    </textures>
+
+    <parameter type="float" name="vorticity" label="vorticity">1</parameter>
+</filter>
+
+<!--
+
+  private void vorticityConfinement_STEP2(float[] wo_Fvc_x, float[] wo_Fvc_y, float[] ro_uVel, float[] ro_vVel, float[] ro_curl,  int[] ro_object, float ro_vorticity){
+    for (int i = 1; i <= NX_; i++){
+      for (int j = 1; j <= NY_; j++){
+        float dw_dx = (ro_curl[IDX(i + 1, j)] - ro_curl[IDX(i - 1, j)]) * 0.5f;
+        float dw_dy = (ro_curl[IDX(i, j + 1)] - ro_curl[IDX(i, j - 1)]) * 0.5f;
+
+        float length = (float) Math.sqrt(dw_dx * dw_dx + dw_dy * dw_dy) + 0.000001f;
+ 
+        dw_dx /= length;
+        dw_dy /= length;
+
+        float v = curl(i, j, ro_uVel, ro_vVel);
+        wo_Fvc_x[IDX(i, j)] = dw_dy * -v * ro_vorticity;
+        wo_Fvc_y[IDX(i, j)] = dw_dx *  v * ro_vorticity;
+      }
+    }
+  }
+  
+-->

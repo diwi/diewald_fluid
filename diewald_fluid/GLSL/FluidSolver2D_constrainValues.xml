@@ -1,0 +1,24 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_constrainValues.frag
+  
+-->
+
+
+
+<filter name="FluidSolver2D_constrainValues">
+    <description>FluidSolver2D_constrainValues</description>
+    <fragment>FluidSolver2D_constrainValues.frag</fragment>
+    <textures input="1" output="1">
+        <intexture type="sampler2d" name="tex_x0" offset="inv_size"         label="tex_x0">0</intexture>      
+    </textures>
+
+    <parameter type="float" name="min" label="timestep">0.0</parameter>
+    <parameter type="float" name="max" label="timestep">1.0</parameter>
+</filter>
+

@@ -1,0 +1,42 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_project_STEP2.frag
+  
+-->
+
+
+<filter name="FluidSolver2D_project_STEP2">
+    <description>FluidSolver2D_project_STEP2</description>
+    <fragment>FluidSolver2D_project_STEP2.frag</fragment>
+    <textures input="4" output="2">
+        <intexture type="sampler2d" name="tex1_rw_x"    offset="inv_size"              label="tex1_rw_x"   >0</intexture>     
+        <intexture type="sampler2d" name="tex2_rw_y"    offset="tex2_rw_y_inv_size"    label="tex2_rw_y"   >1</intexture>  
+        <intexture type="sampler2d" name="tex3_ro_p"    offset="tex3_ro_p_inv_size"    label="tex3_ro_p"   >2</intexture>            
+        <intexture type="sampler2d" name="tex4_objects" offset="tex2_objects_inv_size" label="tex3_objects">3</intexture>              
+    </textures>
+
+    <parameter type="float" name="h" label="h">0.10</parameter>
+</filter>
+
+<!--
+
+
+
+  private void project_STEP2(float[] rw_x, float[] rw_y, float[] ro_p, float ro_h, int[] ro_objects){
+    for (int i = 1; i <= NX_; i++){
+      for (int j = 1; j <= NY_; j++){
+        if( ro_objects[IDX(i, j)] != 0 ) continue;
+        wo_x[IDX(i, j)] = wo_x[IDX(i, j)] - 0.5f * ro_h * (ro_p[IDX(i+1, j)] - ro_p[IDX(i-1, j)]);
+        wo_y[IDX(i, j)] = wo_y[IDX(i, j)] - 0.5f * ro_h * (ro_p[IDX(i, j+1)] - ro_p[IDX(i, j-1)]);
+      }
+    }
+  }
+  
+  
+  
+-->

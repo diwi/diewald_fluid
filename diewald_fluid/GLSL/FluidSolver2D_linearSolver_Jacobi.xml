@@ -1,0 +1,41 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_linearSolver_Jacobi.frag
+  
+-->
+
+<filter name="FluidSolver2D_linearSolver_Jacobi">
+    <description>FluidSolver2D_linearSolver_Jacobi</description>
+    <fragment>FluidSolver2D_linearSolver_Jacobi.frag</fragment>
+    <textures input="3" output="1">
+        <intexture type="sampler2d" name="tex1_ro_x"    offset="inv_size"  label="tex1_ro_x">0</intexture>     
+        <intexture type="sampler2d" name="tex2_ro_x0"   offset="tex1_ro_x0_inv_size"  label="tex2_ro_x0">1</intexture>    
+        <intexture type="sampler2d" name="tex3_objects" offset="tex3_objects_inv_size"  label="tex3_objects">2</intexture>              
+    </textures>
+
+    <parameter type="float" name="a" label="h">1</parameter>
+    <parameter type="float" name="c" label="c">4</parameter>
+</filter>
+
+<!--
+
+
+
+  private void linearSolveJacobi(float[] wo_buffer, float[] ro_x, float[] ro_x0, float ro_a, float ro_c, int[] ro_objects){
+    for (int i = 1; i <= NX_; i++){
+      for (int j = 1; j <= NY_; j++){
+        int k = IDX(i, j);
+        if( ro_objects[k] != 0 ) continue;
+        wo_buffer[k] = (ro_x0[k] + ro_a * ( ro_x[k-1] + ro_x[k+1] + ro_x[k-(NX_+2)] + ro_x[k+(NX_+2)]) ) / ro_c;
+      }
+    }
+  }
+  
+  
+  
+-->

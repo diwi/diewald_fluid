@@ -1,11 +1,23 @@
 /**
- * diewald_FluidSolver2D - Processing Library.
  * 
- * this package handles fluid simulations (GPU-version, CPU-Version), for fast
- * interaction and visual output.
+ * diewald_fluid v00.30
+ * 
+ * fluid dynamics library for processing - CPU / GPU mode.
  * 
  * 
- * Copyright (c) 2011 Thomas Diewald
+ * 
+ *   (C) 2011    Thomas Diewald
+ *               http://www.thomasdiewald.com
+ *   
+ *   last built: 12/09/2011
+ *   
+ *   download:   http://thomasdiewald.com/processing/libraries/diewald_fluid/
+ *   source:     https://github.com/diwi/diewald_fluid 
+ *   
+ *   tested OS:  osx,windows
+ *   processing: 1.5.1, 2.04
+ *
+ *
  *
  *
  * This source is free software; you can redistribute it and/or modify
@@ -23,6 +35,8 @@
  * obtain it by writing to the Free Software Foundation,
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+
 
 package diewald_fluid;
 
@@ -209,14 +223,15 @@ public final class Fluid2D_GPU extends Fluid2D{
   protected final PImage privateGetDensityMap(){
     return TEX_densityMap_;
   }
+  
   public final GLTexture getDensityMapTexture(){
     return TEX_densityMap_;
   }
+  
   @Override
   protected final void privateSetDensityMap(PImage img){
     TEX_densityMap_.putImage(img);
   }
-  
   
   
   @Override
@@ -524,6 +539,10 @@ public final class Fluid2D_GPU extends Fluid2D{
     TEX_FILTER_linearSolver_Jacobi_.setParameterValue("c", 1f/c);  
     
     TEX_FILTER_setBounds_.setParameterValue("b", b);    
+    
+    
+
+    TEX_FILTER_linearSolver_Jacobi_.beginIterativeMode();
     for (int it = 0; it < iterations; it++){
       TEX_FILTER_linearSolver_Jacobi_.apply( new GLTexture[]{ x, x0, objects},  
                                              new GLTexture[]{ x } );
@@ -531,6 +550,7 @@ public final class Fluid2D_GPU extends Fluid2D{
       TEX_FILTER_setBounds_.apply(new GLTexture[]{ x, objects}, 
                                   new GLTexture[]{ x } );
     }
+    TEX_FILTER_linearSolver_Jacobi_.endIterativeMode();
   }
   
   

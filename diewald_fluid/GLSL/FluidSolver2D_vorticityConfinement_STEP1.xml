@@ -1,0 +1,37 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_vorticityConfinement_STEP1.frag
+  
+-->
+
+<filter name="FluidSolver2D_vorticityConfinement_STEP1">
+    <description>FluidSolver2D_vorticityConfinement_STEP1</description>
+    <fragment>FluidSolver2D_vorticityConfinement_STEP1.frag</fragment>
+    <textures input="3" output="1">
+        <intexture type="sampler2d" name="tex1_ro_uVel" offset="inv_size"  label="tex1_ro_uVel">0</intexture>  
+        <intexture type="sampler2d" name="tex2_ro_vVel" offset="tex2_ro_vVel_inv_size"  label="tex2_ro_vVel">1</intexture>       
+        <intexture type="sampler2d" name="tex3_objects" offset="tex3_objects_inv_size"  label="tex3_objects">2</intexture>              
+    </textures>
+
+</filter>
+
+<!--
+
+
+  private void vorticityConfinement_STEP1(float[] ro_uVel, float[] ro_vVel, float[] wo_curl,  int[] ro_objects){
+    for (int i = 1; i <= NX_; i++){
+      for (int j = 1; j <= NY_; j++){
+        if( ro_objects[IDX(i, j)] != 0 ) continue;
+        wo_curl[IDX(i, j)] = Math.abs(curl(i, j, ro_uVel, ro_vVel));
+      }
+    }
+  }
+  
+  
+  
+-->

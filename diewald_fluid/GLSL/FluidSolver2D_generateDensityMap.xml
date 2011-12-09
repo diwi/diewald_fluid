@@ -1,0 +1,38 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_generateDensityMap.frag
+  
+-->
+
+
+
+<filter name="FluidSolver2D_generateDensityMap">
+    <description>FluidSolver2D_generateDensityMap</description>
+    <fragment>FluidSolver2D_generateDensityMap.frag</fragment>
+    <textures input="5" output="1">
+        <intexture type="sampler2d" name="tex_d0"         offset="src_size_inv"             label="tex_x0"        >0</intexture>      
+        <intexture type="sampler2d" name="tex_d1"         offset="tex_d1_inv_size"          label="tex_d1"        >1</intexture>    
+        <intexture type="sampler2d" name="tex_d2"         offset="tex_d2_inv_size"          label="tex_d2"        >2</intexture>    
+        <intexture type="sampler2d" name="tex_objects"    offset="tex_objects_inv_size"     label="tex_objects"   >3</intexture>      
+        <intexture type="sampler2d" name="tex_background" offset="tex_background_inv_size"  label="tex_background">4</intexture>          
+    </textures>
+    <parameter type="vec2"  name="dst_size"            label="dst_size"        >1 1</parameter>
+    <parameter type="int"   name="smooth_texture"      label="smooth_texture"   >1</parameter>
+    <parameter type="int"   name="with_border"         label="with_border"      >1</parameter>
+    <parameter type="vec4"  name="col_objects_border"  label="col_objects_border">1 1 1 1</parameter>
+    <parameter type="vec4"  name="col_objects_body"    label="col_objects_body"  >1 1 1 1</parameter>
+
+
+</filter>
+
+<!--
+
+  
+  
+  
+-->

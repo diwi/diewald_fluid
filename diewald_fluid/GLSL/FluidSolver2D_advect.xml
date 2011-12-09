@@ -1,0 +1,70 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_advect.frag
+  
+-->
+
+
+
+<filter name="FluidSolver2D_advect">
+    <description>FluidSolver2D_advect</description>
+    <fragment>FluidSolver2D_advect.frag</fragment>
+    <textures input="4" output="1">
+        <intexture type="sampler2d" name="tex1_ro_d0"   offset="inv_size"               label="tex1_ro_d0"  >0</intexture>     
+        <intexture type="sampler2d" name="tex2_ro_du"   offset="tex2_ro_du_inv_size"    label="tex2_ro_du"  >1</intexture>    
+        <intexture type="sampler2d" name="tex3_ro_dv"   offset="tex3_ro_dv_inv_size"    label="tex3_ro_dv"  >2</intexture>    
+        <intexture type="sampler2d" name="tex4_objects" offset="tex4_objects_inv_size"  label="tex4_objects">3</intexture>              
+    </textures>
+
+    <parameter type="float" name="dt0" label="dt0">1</parameter>
+</filter>
+
+<!--
+
+
+
+  private void advect(float[] wo_d, float[] ro_d0, float[] ro_du, float[] ro_dv, float ro_timestep, int[] ro_objects){
+    int i0, j0, i1, j1;
+    float x, y, s0, t0, s1, t1;
+    
+    float x_max = NX_ + 0.5f;
+    float y_max = NY_ + 0.5f;
+
+    float dt0 = ro_timestep * (NX_+NY_)/2.0;//
+    //dt0 = timestep;//
+
+    for (int i = 1; i <= NX_; i++){
+      for (int j = 1; j <= NY_; j++){
+        // go backwards through velocity field
+        if( ro_objects[IDX(i, j)] != 0 ) continue;
+        x = i - dt0 * ro_du[IDX(i, j)];
+        y = j - dt0 * ro_dv[IDX(i, j)];
+
+        // interpolate results
+        if (x > x_max) x = x_max;
+        if (x < 0.5)   x = 0.5f;
+
+        i0 = (int) x;
+        i1 = i0 + 1;
+
+        if (y > y_max) y = y_max;
+        if (y < 0.5)   y = 0.5f;
+
+        j0 = (int) y;
+        j1 = j0 + 1;
+
+        s1 = x - i0; s0 = 1 - s1;
+        t1 = y - j0; t0 = 1 - t1;
+        wo_d[IDX(i, j)] = s0 * (t0 * ro_d0[IDX(i0, j0)] + t1 * ro_d0[IDX(i0, j1)]) + s1 * (t0 * ro_d0[IDX(i1, j0)] + t1 * ro_d0[IDX(i1, j1)]);
+      }
+    }
+  }
+  
+  
+  
+-->

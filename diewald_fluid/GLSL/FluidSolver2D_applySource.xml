@@ -1,0 +1,23 @@
+<!--
+
+  author: thomas diewald
+  date: 25.07.2011
+  last edited: 25.07.2011
+  
+  loads GLSL shader: 
+    FluidSolver2D_applySource.frag
+  
+-->
+
+
+
+
+<filter name="FluidSolver2D_applySource">
+    <description>FluidSolver2D_applySource</description>
+    <fragment>FluidSolver2D_applySource.frag</fragment>
+    <textures input="1" output="1">    
+        <intexture type="sampler2d" name="tex_x0" offset="src_size_inv"  label="tex_x0">0</intexture>       
+    </textures>
+
+</filter>
+
